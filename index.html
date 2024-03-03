@@ -16,17 +16,20 @@
 		
 		<button onclick ="
 		playGame('paper');
-		">Paper</butto
+		">Paper</button>
 		
 		<button onclick="
 		playGame('scissors');
 		">Scissors</button>
+		
+		<p class="js-score"></p>
 		
 		<button onclick="
 		score.wins = 0;
 		score.losses = 0;
 		score.ties = 0;
 		localStorage.removeItem('score');
+		updateScoreElement();
 		">Reset Score</button>
 		
 		<script>
@@ -36,6 +39,8 @@
 		losses : 0,
 		ties : 0
 			};
+		
+		updateScoreElement();
 		
 		function pickComputerMove(){
 			let computerMove = '';
@@ -89,14 +94,16 @@
 			}else if(result === 'Tie' ){
 				score.ties +=1;
 			}
-			
-			
+		
 			localStorage.setItem('score',JSON.stringify(score));
 			
-			alert(`You picked ${playerMove}. Computer picked ${computerMove}. ${result}
-Wins : ${score.wins}, Losses :${score.losses},Ties :${score.ties}`);
-			} 
+			updateScoreElement();
 			
+			} 
+			function updateScoreElement(){
+				document.querySelector('.js-score')
+					.innerHTML = `Wins : ${score.wins}, Losses:${score.losses},Ties :${score.ties}`;
+			}
 		</script>
 
 
